@@ -24,7 +24,7 @@ This module is designed to be a simple and minimalistic... a one and done setup 
 
 ## Setup ##
 
-Modify or inherit parameters in params.pp to your liking. Enable php repo in true by default. 
+Modify or inherit parameters in params.pp to your liking. Enable php and epel repo is true by default. 
 
 ## Usage ##
 
