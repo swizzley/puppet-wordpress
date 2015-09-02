@@ -1,9 +1,5 @@
 # Class: wordpress::packages
 #
-# This module manages wordpress
-#
-# Parameters:
-#
 class wordpress::packages {
   package { [
     'php',
