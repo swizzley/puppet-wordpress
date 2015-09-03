@@ -21,22 +21,27 @@ class wordpress (
   include ::apache::php
 
   if ($manage_php_repo) {
-    file { '/etc/yum.repos.d/remi.repo':
-      ensure => present,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-      source => 'puppet:///modules/wordpress/remi-php.repo'
+    yumrepo { "remi":
+      descr    => "Remi's PHP 5.6 RPM repository for Enterprise Linux 6",
+      baseurl  => "http://rpms.remirepo.net/enterprise/6/php56/mirror",
+      gpgcheck => "0",
+      enabled  => "1"
+    }
+
+    yumrepo { "remi-safe":
+      descr    => "Safe Remi's RPM repository for Enterprise Linux 6 ",
+      baseurl  => "http://rpms.remirepo.net/enterprise/6/safe/mirror",
+      gpgcheck => "0",
+      enabled  => "1"
     }
   }
 
   if ($manage_epel_repo) {
-    file { '/etc/yum.repos.d/epel.repo':
-      ensure => present,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-      source => 'puppet:///modules/wordpress/epel.repo'
+    yumrepo { "epel":
+      descr    => "Extra Packages for Enterprise Linux 6 - \$basearch",
+      baseurl  => "http://download.fedoraproject.org/pub/epel/6/\$basearch",
+      gpgcheck => "0",
+      enabled  => "1"
     }
   }
 
@@ -56,3 +61,4 @@ class wordpress (
   }
 
 }
+
