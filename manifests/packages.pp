@@ -36,7 +36,8 @@ class wordpress::packages (
       'php-gd',
       'php-mbstring',
       'php-mcrypt',
-      'php-xml']:
+      'php-xml',
+      'mysql']:
       ensure => installed,
     }
   } elsif ($manage_php_repo == true and $manage_epel_repo == false) {
@@ -51,7 +52,7 @@ class wordpress::packages (
       baseurl  => "http://rpms.remirepo.net/enterprise/6/safe/x86_64/",
       gpgcheck => "0",
       enabled  => "1"
-    }  ->
+    } ->
     package { [
       'php',
       'php-pecl-apcu',
@@ -67,7 +68,8 @@ class wordpress::packages (
       'php-gd',
       'php-mbstring',
       'php-mcrypt',
-      'php-xml']:
+      'php-xml',
+      'mysql']:
       ensure => installed,
     }
   } elsif ($manage_epel_repo == true and $manage_php_repo == false) {
@@ -76,7 +78,7 @@ class wordpress::packages (
       baseurl  => "http://download.fedoraproject.org/pub/epel/6/x86_64/",
       gpgcheck => "0",
       enabled  => "1"
-    }  ->
+    } ->
     package { [
       'php',
       'php-pecl-apcu',
@@ -92,7 +94,8 @@ class wordpress::packages (
       'php-gd',
       'php-mbstring',
       'php-mcrypt',
-      'php-xml']:
+      'php-xml',
+      'mysql']:
       ensure => installed,
     }
   } else {
@@ -111,7 +114,8 @@ class wordpress::packages (
       'php-gd',
       'php-mbstring',
       'php-mcrypt',
-      'php-xml']:
+      'php-xml',
+      'mysql']:
       ensure => installed,
     }
   }
