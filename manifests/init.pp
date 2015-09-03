@@ -5,17 +5,21 @@
 # Parameters:
 #
 class wordpress (
-  $site_name        = $::wordpress::params::site_name,
-  $dir_wordpress    = $::wordpress::params::dir_wordpress,
-  $url_source       = $::wordpress::params::url_source,
-  $owner            = $::wordpress::params::owner,
-  $group            = $::wordpress::params::group) inherits ::wordpress::params {
+  $site_name     = $::wordpress::params::site_name,
+  $dir_wordpress = $::wordpress::params::dir_wordpress,
+  $url_source    = $::wordpress::params::url_source,
+  $owner         = $::wordpress::params::owner,
+  $group         = $::wordpress::params::group) inherits ::wordpress::params {
   # Begin
   include wordpress::mysql
   include wordpress::packages
   include ::apache
   include ::apache::php
 
+  file { $dir_wordpress:
+    ensure => directory,
+    mode   => '0755'
+  } ->
   artifact { 'wordpress.tar.gz':
     source => $url_source,
     target => $dir_wordpress,
