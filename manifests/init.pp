@@ -12,9 +12,7 @@ class wordpress (
   $group            = $::wordpress::params::group) inherits ::wordpress::params {
   # Begin
   include wordpress::mysql
-  require wordpress::mysql
   include wordpress::packages
-  require wordpress::packages
   include ::apache
   include ::apache::php
 

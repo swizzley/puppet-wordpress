@@ -5,6 +5,10 @@ class wordpress::mysql (
   $mysql_user = $::wordpress::params::mysql_user,
   $mysql_pass = $::wordpress::params::mysql_pass,) inherits ::wordpress::params {
   # Setup MySQL
+  class { '::mysql::server':
+    root_password           => '6vrv7ftRTCFGVBHK4f4gfer5gqe',
+    remove_default_accounts => true,
+  } ->
   mysql_database { "${mysql_host}/${mysql_db}":
     name    => $mysql_db,
     charset => 'utf8',
