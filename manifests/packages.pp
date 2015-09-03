@@ -9,15 +9,13 @@ class wordpress::packages (
       baseurl  => "http://rpms.remirepo.net/enterprise/6/php56/mirror",
       gpgcheck => "0",
       enabled  => "1"
-    }
-
+    } ->
     yumrepo { "remi-safe":
       descr    => "Safe Remi's RPM repository for Enterprise Linux 6 ",
       baseurl  => "http://rpms.remirepo.net/enterprise/6/safe/mirror",
       gpgcheck => "0",
       enabled  => "1"
-    }
-
+    } ->
     package { [
       'php',
       'php-pecl-apcu',
@@ -42,8 +40,7 @@ class wordpress::packages (
       baseurl  => "http://download.fedoraproject.org/pub/epel/6/\$basearch",
       gpgcheck => "0",
       enabled  => "1"
-    }
-
+    } ->
     package { [
       'php',
       'php-pecl-apcu',
