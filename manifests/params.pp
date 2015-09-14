@@ -9,6 +9,7 @@ class wordpress::params {
   $mysql_host = 'localhost'
   $mysql_user = 'wordpress'
   $mysql_pass = 'w0rdPR355p4ssw0rd4mysql'
+  $mysql_root = '6vrv7ftRTCFGVBHK4f4gfer5gqe'
   $owner = 'wordpress'
   $group = 'wordpress'
 }

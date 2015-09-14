@@ -1,6 +1,6 @@
 # wordpress #
 
-[![Puppet Forge](https://img.shields.io/badge/puppetforge-v0.1.1-blue.svg)](https://forge.puppetlabs.com/swizzley88/wordpress)
+[![Puppet Forge](https://img.shields.io/badge/puppetforge-v0.1.2-blue.svg)](https://forge.puppetlabs.com/swizzley88/wordpress)
 
 **Table of Contents**
 
