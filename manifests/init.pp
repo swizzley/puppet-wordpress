@@ -14,7 +14,7 @@ class wordpress (
   include wordpress::mysql
   include wordpress::packages
   include ::apache
-  include ::apache::php
+  include ::apache::mod::php
 
   file { $dir_wordpress:
     ensure => directory,
