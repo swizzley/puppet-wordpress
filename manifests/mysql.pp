@@ -1,15 +1,14 @@
 # class wordpress::mysql
 class wordpress::mysql (
-  $mysql_db   = $::wordpress::params::mysql_host,
+  $mysql_db   = $::wordpress::params::mysql_db,
   $mysql_host = $::wordpress::params::mysql_host,
   $mysql_user = $::wordpress::params::mysql_user,
-  $mysql_pass = $::wordpress::params::mysql_pass,
-  $mysql_root = $::wordpress::params::mysql_root,) inherits ::wordpress::params {
+  $mysql_pass = $::wordpress::params::mysql_pass,) inherits ::wordpress::params {
   # Setup MySQL
+  package { 'mysql-server' : ensure => installed } ->
   class { '::mysql::server':
-    root_password           => $mysql_root,
-    remove_default_accounts => true,
-  } ->
+      root_password           => $mysql_pass,
+  }->
   mysql_database { "${mysql_host}/${mysql_db}":
     name    => $mysql_db,
     charset => 'utf8',
