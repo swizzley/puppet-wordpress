@@ -18,7 +18,7 @@ class wordpress (
   include wordpress::packages
   require wordpress::packages
   include ::apache
-  include ::apache::php
+  include ::apache::mod::php
 
   group { $group: ensure => present }
   user { $owner: 
