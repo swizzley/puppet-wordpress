@@ -5,21 +5,49 @@
 # Parameters:
 #
 class wordpress (
-  $site_name     = $::wordpress::params::site_name,
-  $dir_wordpress = $::wordpress::params::dir_wordpress,
-  $url_source    = $::wordpress::params::url_source,
-  $owner         = $::wordpress::params::owner,
-  $group         = $::wordpress::params::group) inherits ::wordpress::params {
+  $manage_php_repo  = $::wordpress::params::manage_php_repo,
+  $manage_epel_repo = $::wordpress::params::manage_epel_repo,
+  $site_name        = $::wordpress::params::site_name,
+  $dir_wordpress    = $::wordpress::params::dir_wordpress,
+  $url_source       = $::wordpress::params::url_source,
+  $owner            = $::wordpress::params::owner,
+  $group            = $::wordpress::params::group) inherits ::wordpress::params {
   # Begin
   include wordpress::mysql
+  require wordpress::mysql
   include wordpress::packages
+  require wordpress::packages
   include ::apache
   include ::apache::php
 
-  file { $dir_wordpress:
-    ensure => directory,
-    mode   => '0755'
-  } ->
+  group { $group: ensure => present }
+  user { $owner: 
+    ensure => present,
+    groups => $group,
+    shell  => '/sbin/nologin',
+    home   => '/var/www/html'
+  }
+  
+  if ($manage_php_repo) {
+    file { '/etc/yum.repos.d/remi.repo':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      source => 'puppet:///modules/wordpress/remi-php.repo'
+    }
+  }
+
+  if ($manage_epel_repo) {
+    file { '/etc/yum.repos.d/epel.repo':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      source => 'puppet:///modules/wordpress/epel.repo'
+    }
+  }
+
   artifact { 'wordpress.tar.gz':
     source => $url_source,
     target => $dir_wordpress,
@@ -31,9 +59,9 @@ class wordpress (
     unless  => 'test -d /var/www/html/wp-admin'
   } ->
   apache::vhost { $site_name:
-    port    => '80',
-    docroot => '/var/www/html',
+    port     => '80',
+    docroot  => '/var/www/html',
+    override => ['All'],
   }
 
 }
-
